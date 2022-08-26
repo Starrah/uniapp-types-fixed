@@ -1,0 +1,44 @@
+diff --git a/uni-app/index.d.ts b/uni-app/index.d.ts
+index 0905fae..a9e4fbc 100644
+--- a/uni-app/index.d.ts
++++ b/uni-app/index.d.ts
+@@ -5,6 +5,7 @@
+ /// <reference path="./page.d.ts" />
+ /// <reference path="./uni.d.ts" />
+ /// <reference path="./cloud.d.ts" />
++/// <reference path="./promise.d.ts" />
+
+ import UniApp = UniNamespace;
+ import UniCloud = UniCloudNamespace;
+diff --git a/uni-app/promise.d.ts b/uni-app/promise.d.ts
+new file mode 100644
+index 0000000..5e443d5
+--- /dev/null
++++ b/uni-app/promise.d.ts
+@@ -0,0 +1,13 @@
++/// <reference path="./uni.d.ts" />
++type OmitCallback<T> = Omit<T, "success" | "failed" | "complete">
++
++type PromiseUni = {
++    [k in keyof Uni]: Uni[k] extends (options: infer Op) => infer Re ?
++        (Op extends { success?: (result: infer Su) => void, fail?: (result: any) => void } ?
++            ((options: OmitCallback<Op>) => Promise<Su>) &
++            ((options: Op) => Re) :
++            Uni[k]) :
++        Uni[k]
++}
++
++declare const uni: PromiseUni;
+diff --git a/uni-app/uni.d.ts b/uni-app/uni.d.ts
+index e32eaa3..e4a8580 100644
+--- a/uni-app/uni.d.ts
++++ b/uni-app/uni.d.ts
+@@ -14537,7 +14537,7 @@ declare namespace UniNamespace {
+  *
+  * 文档: [http://uniapp.dcloud.io/api](http://uniapp.dcloud.io/api)
+  */
+-declare const uni: UniNamespace.Uni;
++// 移动至 promise.d.ts
+ 
+ interface Uni {
+     /**

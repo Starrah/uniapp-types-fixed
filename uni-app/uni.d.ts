@@ -14537,7 +14537,7 @@ declare namespace UniNamespace {
  *
  * 文档: [http://uniapp.dcloud.io/api](http://uniapp.dcloud.io/api)
  */
-declare const uni: UniNamespace.Uni;
+// 移动至 promise.d.ts
 
 interface Uni {
     /**

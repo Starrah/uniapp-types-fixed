@@ -1558,7 +1558,7 @@ declare namespace UniCloudNamespace {
      *
      * 文档: [http://uniapp.dcloud.io/uniCloud/cf-database?id=collection](http://uniapp.dcloud.io/uniCloud/cf-database?id=collection)
      */
-    collection(collName: string | HBuilderX.DBCollectionString): CollectionReference;
+    collection(...collName: (string | HBuilderX.DBCollectionString | GetTempQuery)[]): CollectionReference;
     /**
      * 指定数据库操作需要执行的action
      *
